@@ -1,16 +1,12 @@
 # CO111 GROUP B4 ASSIGNMENT REPO
 
-Nothing to see here
-
-IT WERKZ...
-
 WE HAVE A WEBSITE https://deathappens.github.io/CO1111_Treasure_Hunt/
 
 
-WE HAVE A TWITTER: https://twitter.com/TreasureAVRS password:12345poster (Use to post stuff to pretend we have a social media presence)
+WE HAVE A TWITTER: https://twitter.com/TreasureAVRS
 
 
-WE HAVE AN INSTAGRAM: [(pending)](https://www.instagram.com/?hl=en)  username:treasureavrs password:12345poster
+WE HAVE AN INSTAGRAM:(https://www.instagram.com/?hl=en)  username:treasureavrsr
 
 
 
