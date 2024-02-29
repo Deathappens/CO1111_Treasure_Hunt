@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <style>
-#quizcontainer{
-    display: grid;
-    grid-template-rows: auto auto auto;
+        #quizcontainer {
+            display: grid;
+            grid-template-rows: auto auto auto;
 
-}
+        }
 
         .quizbox {
             border: 1px solid black;
@@ -24,12 +24,6 @@
         }
 
 
-
-
-
-
-
-
     </style>
     <title>Quiz list</title>
 </head>
@@ -37,6 +31,19 @@
 <header>
     <h1>Welcome to the Quiz list!</h1>
 </header>
+<h2>Please provide your team's data so you can start a quiz!</h2>
+<form method=post onsubmit="getquizlist(event)">
+    <p>
+        <label>Player Name
+            <input type="text" name="pname" id="pname"></label>
+    </p>
+    <p>
+        <label>Name of the app used <input type="text" name="appname" id="appname"></label>
+    </p>
+    <input type="submit">
+
+</form>
+
 
 <div id="quizcontainer">
 

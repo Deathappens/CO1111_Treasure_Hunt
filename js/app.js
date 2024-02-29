@@ -1,7 +1,11 @@
+let quizcontainer = document.getElementById('quizcontainer')
+var uname = document.getElementById("pname");
+var appname = document.getElementById("appname");
 
-let quizcontainer=document.getElementById('quizcontainer')
+function getquizlist(event) {
+    event.preventDefault();
+    let today = new Date();
 
-function getquizlist() {
     fetch("https://codecyprus.org/th/api/list")
         .then(response => response.json())
         .then(treasureHuntObject => {
@@ -11,21 +15,33 @@ function getquizlist() {
                     let qname = treasurearray[i].name;
                     let qdesc = treasurearray[i].description;
                     let qstartdate = new Date(treasurearray[i].startsOn);
-                    //let qenddate = new Date(treasurearray[i].endsOn);
+                    let qid = treasurearray[i].uuid;
+                    let qenddate = new Date(treasurearray[i].endsOn);
 
-                let bigbox=document.createElement('div');
-                bigbox.className="quizbox";
+                    let bigbox = document.createElement('div');
+                    bigbox.className = "quizbox";
 
-                let boxheader=document.createElement('div');
-                boxheader.className="quizboxheader";
-                boxheader.textContent=qname;
-                bigbox.appendChild(boxheader);
+                    let boxheader = document.createElement('div');
+                    boxheader.className = "quizboxheader";
+                    boxheader.textContent = qname;
+                    bigbox.appendChild(boxheader);
 
-                let content=document.createElement('div');
+                    let content = document.createElement('div');
                     content.innerHTML = qdesc + "<br>" + "This quiz's start date is: " + "<br>" + qstartdate;
-                bigbox.appendChild(content);
+                    bigbox.appendChild(content);
 
-                quizcontainer.appendChild(bigbox);
+                    let startlink = document.createElement('span');
+                    if (!qenddate < today && !qstartdate > today) {  //if the quiz ended before the current date or is set to start in the future, the start link isn't clickable
+                        startlink.innerHTML = "<a href='https://codecyprus.org/th/api/start?player=" + uname + "&app=" + appname + "&treasure-hunt-id=" + qid + "'>Click here to start</a>";
+                    } else {
+                        startlink.style.color = "grey";
+                        startlink.style.textDecoration = "underline";
+                        startlink.style.cursor = "default";
+                        startlink.textContent="This quest cannot be started yet or has already ended."
+                    }
+                    bigbox.appendChild(startlink);
+
+                    quizcontainer.appendChild(bigbox);
 
                 }
 
@@ -35,8 +51,7 @@ function getquizlist() {
         });
 }
 
-
-getquizlist(); //TODO: Add a player input box and call the quizlist function only after the player gives the mandatory data needed to start a quiz/onsubmit
+//TODO:Implement Form Validation techniques
 
 
 
