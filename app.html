@@ -32,13 +32,13 @@
     <h1>Welcome to the Quiz list!</h1>
 </header>
 <h2>Please provide your team's data so you can start a quiz!</h2>
-<form method=post onsubmit="getquizlist(event)">
+<form method=post onsubmit="formInputValidator(event)">
     <p>
         <label>Player Name
-            <input type="text" name="pname" id="pname"></label>
+            <input type="text" name="pname" id="pname" required minlength="3" maxlength="10"></label>
     </p>
     <p>
-        <label>Name of the app used <input type="text" name="appname" id="appname"></label>
+        <label>Name of the app used <input type="text" name="appname" id="appname" minlength="3" maxlength="30"></label>
     </p>
     <input type="submit">
 

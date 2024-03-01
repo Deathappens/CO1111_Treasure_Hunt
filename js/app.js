@@ -1,9 +1,32 @@
 let quizcontainer = document.getElementById('quizcontainer')
-var uname = document.getElementById("pname");
-var appname = document.getElementById("appname");
+var uname;
+var appname;
 
-function getquizlist(event) {
+function formInputValidator(event) {
     event.preventDefault();
+    if (true) { //form validation happens here
+        uname = document.getElementById("pname");
+        appname = document.getElementById("appname");
+    }
+
+    getQuizList();
+}
+
+
+function questFetcher(qid) {
+    fetch("https://codecyprus.org/th/api/start?player=" + uname + "&app=" + appname + "&treasure-hunt-id=" + qid)
+        .then(response => response.json())
+        .then(quizobject => {
+                if (quizobject.status === "ERROR") {
+                    alert(quizobject.errorMessages[0]);
+                }
+
+            }
+        );
+
+}
+
+function getQuizList() {
     let today = new Date();
 
     fetch("https://codecyprus.org/th/api/list")
@@ -15,9 +38,8 @@ function getquizlist(event) {
                     let qname = treasurearray[i].name;
                     let qdesc = treasurearray[i].description;
                     let qstartdate = new Date(treasurearray[i].startsOn);
-                    let qid = treasurearray[i].uuid;
+                    let questid = treasurearray[i].uuid;
                     let qenddate = new Date(treasurearray[i].endsOn);
-
                     let bigbox = document.createElement('div');
                     bigbox.className = "quizbox";
 
@@ -30,14 +52,15 @@ function getquizlist(event) {
                     content.innerHTML = qdesc + "<br>" + "This quiz's start date is: " + "<br>" + qstartdate;
                     bigbox.appendChild(content);
 
-                    let startlink = document.createElement('span');
-                    if (!qenddate < today && !qstartdate > today) {  //if the quiz ended before the current date or is set to start in the future, the start link isn't clickable
-                        startlink.innerHTML = "<a href='https://codecyprus.org/th/api/start?player=" + uname + "&app=" + appname + "&treasure-hunt-id=" + qid + "'>Click here to start</a>";
+                    let startlink = document.createElement('div');
+
+                    if (!(qenddate < today) && !(qstartdate > today)) {  //if the quiz ended before the current date or is set to start in the future, the start link isn't clickable
+                        startlink.innerHTML = "<button onclick='questFetcher(\"" + questid + "\")'>Click here to start</button>";
                     } else {
                         startlink.style.color = "grey";
                         startlink.style.textDecoration = "underline";
                         startlink.style.cursor = "default";
-                        startlink.textContent="This quest cannot be started yet or has already ended."
+                        startlink.textContent = "This quest cannot be started yet or has already ended."
                     }
                     bigbox.appendChild(startlink);
 
