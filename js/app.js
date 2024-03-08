@@ -1,15 +1,13 @@
 let quizcontainer = document.getElementById('quizcontainer')
 var username;
-var appname;
 var button=document.getElementById("submitbutton");
 
 function formInputValidator(event) {
     event.preventDefault();
     let input_valid=false;
         username = document.getElementById("pname").value;
-        appname = document.getElementById("appname").value;
     let alphabetregex = /^[a-zA-Z]+$/; //Regular expression found in https://www.w3resource.com/javascript/form/all-letters-field.php;
-    input_valid=(alphabetregex.test(username)&&alphabetregex.test(appname));
+    input_valid=alphabetregex.test(username);
 
 
         if(input_valid) {
@@ -17,7 +15,7 @@ function formInputValidator(event) {
             button.disabled = true;
             getQuizList();
         }else{
-            alert("The provided player name or app name were not valid (only alphabetical characters allowed)");
+            alert("The provided player name was not valid (only alphabetical characters allowed)");
         }
 }
 
@@ -77,7 +75,7 @@ function getQuizList() {
 
 
 function questFetcher(qid) {
-    fetch("https://codecyprus.org/th/api/start?player=" + username + "&app=" + appname + "&treasure-hunt-id=" + qid)
+    fetch("https://codecyprus.org/th/api/start?player=" + username + "&app=TreasureHuntAVRS&treasure-hunt-id=" + qid)
         .then(response => response.json())
         .then(quizobject => {
                 if (quizobject.status === "ERROR") {
