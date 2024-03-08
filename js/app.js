@@ -70,7 +70,7 @@ function getQuizList() {
             }
         });
 }
-
+i
 
 
 
@@ -78,10 +78,14 @@ function questFetcher(qid) {
     fetch("https://codecyprus.org/th/api/start?player=" + username + "&app=TreasureHuntAVRS&treasure-hunt-id=" + qid)
         .then(response => response.json())
         .then(quizobject => {
+                console.log(quizobject);
                 if (quizobject.status === "ERROR") {
                     alert(quizobject.errorMessages[0]);
                 }
-
+                else {
+                    setCookie("sessionID", quizobject.session, 30);
+                    location.href = "question.html";
+                }
             }
         );
 
