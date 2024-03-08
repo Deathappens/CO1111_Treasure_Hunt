@@ -1,4 +1,10 @@
-html, body {
+body{
+    margin:0px;
+    padding: 0px;
+    height:100vh;
+    background-color: pink;
+  }
+html{
     margin:0px;
     padding: 0px;
     height:100vh;
