@@ -1,6 +1,10 @@
-body{
+html, body {
+    margin:0px;
+    padding: 0px;
+    height:100vh;
     background-color: pink;
-}
+  }
+
 button{
     width: 200px;
     height: 50px;
@@ -25,3 +29,42 @@ button{
     align-content: center;
     flex-wrap: wrap;
 }
+.app 
+{
+    text-decoration: none;
+    color: black;
+}
+.que
+{
+    text-decoration: none;
+    color: black;
+}
+.links
+{
+    text-align: center;
+    position: relative;
+}
+.name
+{
+    text-align: center;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: lightgray;
+    padding: 10px;
+  }
+  .grid-item {
+    background-color: lightgray;
+    padding: 20px;
+    text-align: center;
+  }
+  header{
+    background-color: lightgray;
+    margin: 0px;
+    padding: 0%;
+  }
+  footer{
+    background-color: lightgray;
+    margin: 0px;
+  }
