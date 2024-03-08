@@ -1,20 +1,20 @@
 let quizcontainer = document.getElementById('quizcontainer')
-var uname;
+var username;
 var appname;
+var button=document.getElementById("submitbutton");
 
 function formInputValidator(event) {
     event.preventDefault();
-    if (true) { //form validation happens here
-        uname = document.getElementById("pname");
+        username = document.getElementById("pname");
         appname = document.getElementById("appname");
-    }
-
-    getQuizList();
+    button.value = "Refresh the page if you wish to change your info!"; //TODO:implement actual validation (ensure name and appname are only text)
+    button.disabled=true;
+        getQuizList();
 }
 
 
 function questFetcher(qid) {
-    fetch("https://codecyprus.org/th/api/start?player=" + uname + "&app=" + appname + "&treasure-hunt-id=" + qid)
+    fetch("https://codecyprus.org/th/api/start?player=" + username.value + "&app=" + appname.value + "&treasure-hunt-id=" + qid)
         .then(response => response.json())
         .then(quizobject => {
                 if (quizobject.status === "ERROR") {
@@ -29,17 +29,19 @@ function questFetcher(qid) {
 function getQuizList() {
     let today = new Date();
 
-    fetch("https://codecyprus.org/th/api/list")
-        .then(response => response.json())
+    fetch("https://codecyprus.org/th/api/list")//send a query about the list of quests from the API
+        .then(response => response.json()) //parse it
         .then(treasureHuntObject => {
-            if (treasureHuntObject.status === "OK") {
-                const treasurearray = treasureHuntObject.treasureHunts;
+            if (treasureHuntObject.status === "OK") { //check if the list was received correctly
+                const treasurearray = treasureHuntObject.treasureHunts; //if so,take the array of quests
                 for (i = 0; i < treasurearray.length; i++) {
                     let qname = treasurearray[i].name;
                     let qdesc = treasurearray[i].description;
                     let qstartdate = new Date(treasurearray[i].startsOn);
                     let questid = treasurearray[i].uuid;
                     let qenddate = new Date(treasurearray[i].endsOn);
+                    //break down all the relevant information for each quest
+
                     let bigbox = document.createElement('div');
                     bigbox.className = "quizbox";
 
@@ -74,7 +76,6 @@ function getQuizList() {
         });
 }
 
-//TODO:Implement Form Validation techniques
 
 
 
