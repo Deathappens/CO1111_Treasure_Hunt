@@ -38,3 +38,7 @@
     getQuestion();
 
 
+//TODO:1)Create different forms for different types of questions as per jsonObject.questionType.
+    // TODO:2)Create and show question number/total questions(jsonObject.numofquestions, starts at 0),current score
+    // TODO:3) Show whether question is skippable+ provide skip button
+    //TODO:4)Implement location functionality
