@@ -6,7 +6,7 @@ function formInputValidator(event) {
     event.preventDefault();
     let input_valid=false;
         username = document.getElementById("pname").value;
-    let alphabetregex = /^[a-zA-Z]+$/; //Regular expression found in https://www.w3resource.com/javascript/form/all-letters-field.php;
+    let alphabetregex = /^[a-zA-Z0-9]+$/; //Regular expression found in https://www.w3resource.com/javascript/form/all-letters-field.php;
     input_valid=alphabetregex.test(username);
 
 
