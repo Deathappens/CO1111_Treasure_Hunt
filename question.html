@@ -5,14 +5,44 @@
     <title>Question</title>
 </head>
 <body>
-
 <script src="js/cookies.js"></script>
-
+<h1 id="questionNo"></h1>
 
 <p id="questionText"></p>
 
-<input type="text" id="answerField" />
-<input type="button" value="Submit" onclick="answer()" />
+
+<div id="textAnswerBlock" style="display:none">
+    <input type="text" id="textAnswerField">
+    <input type="button" value="Submit" onclick="answer('TEXT')"/>
+</div>
+
+<div id="numAnswerBlock" style="display:none">
+    <input type="number" id="numAnswerField">
+    <input type="button" value="Submit" onclick="answer('NUMERIC')"/>
+</div>
+
+<div id="intAnswerBlock" style="display:none">
+    <input type="number" id="intAnswerField" >
+    <input type="button" value="Submit" onclick="answer('INTEGER')"/>
+</div>
+
+<div id="boolAnswerBlock" style="display:none">
+    <input type="button" value="True" onclick="answer('BOOLEAN','true')">
+    <input type="button" value="False" onclick="answer('BOOLEAN','false')">
+
+</div>
+
+<div id="mcqAnswerBlock" style="display:none">
+    <div style=" display:grid; grid-template-columns:auto auto ">
+        <input type="button" value="A" onclick="answer('MCQ','A')">
+        <input type="button" value="B" onclick="answer('MCQ','B')">
+        <input type="button" value="C" onclick="answer('MCQ','C')">
+        <input type="button" value="D" onclick="answer('MCQ','D')">
+
+    </div>
+</div>
+
+<input style="visibility:hidden" type="button" id="skipbutton" value="Skip Question?" onclick="skipper()">
 
 <script src="js/questions.js"></script>
 
