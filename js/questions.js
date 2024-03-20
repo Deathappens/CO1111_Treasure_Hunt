@@ -7,13 +7,14 @@ const intAnswerBlock = document.getElementById("intAnswerBlock");
 const numAnswerBlock = document.getElementById("numAnswerBlock");
 const mcqAnswerBlock = document.getElementById("mcqAnswerBlock");
 const boolAnswerBlock = document.getElementById("boolAnswerBlock");
-
+const playerscore=document.getElementById("playerscoreheading");
+const scoreboard=document.getElementById("innerscoreboardiv");
 function getQuestion() {
     fetch(`https://codecyprus.org/th/api/question?session=${sessionID}`)
         .then(response => response.json())
         .then(jsonObject => {
-            console.log(jsonObject);
-            if (jsonObject.completed == false) {
+            console.log(jsonObject); //TODO:what if getquestion returns a status other than OK
+            if (jsonObject.completed === false) {
                 questionTextElement.innerHTML = jsonObject.questionText;
                 qNoHeader.innerText = `Question ${(jsonObject.currentQuestionIndex + 1)}/${jsonObject.numOfQuestions}`;
 
@@ -35,24 +36,25 @@ function getQuestion() {
                         textAnswerBlock.style.display = "flex";
                         break;
 
-
                 }
-
+                    score();
+                    scoreboard();
 
                 if (jsonObject.canBeSkipped == true) {
-                    skipbutton.style.visibility = "visible";
+                    skipbutton.style.display = "flex";
+                }else{
+                    skipbutton.style.display="none";
                 }
 
 
             }else{
-
                 questionTextElement.innerHTML="<h1>Congratulations! You have finished the quiz!</h1>"
-
+                skipbutton.style.display="none";
             }
         });
 }
 
-function answer(type, ButtonInputResponse = null) { //TODO: Look again into hiding the input boxes
+function answer(type, BoolButtonValue = null) {
     let answerValue;
     switch (type) {
         case "TEXT":
@@ -72,10 +74,10 @@ function answer(type, ButtonInputResponse = null) { //TODO: Look again into hidi
             NumAnswerFieldElement.value = "";
             break;
         case "BOOLEAN":
-            answerValue = ButtonInputResponse;
+            answerValue = BoolButtonValue;
             break;
         case "MCQ":
-            answerValue = ButtonInputResponse;
+            answerValue = BoolButtonValue;
     }
 
     fetch(`https://codecyprus.org/th/api/answer?session=${sessionID}&answer=${answerValue}`)
@@ -102,7 +104,7 @@ function answer(type, ButtonInputResponse = null) { //TODO: Look again into hidi
                             textAnswerBlock.style.display = "none";
                             break;
                     }
-                    getQuestion(); //TODO: check what happens if you getQuestion after completing the quiz
+                    getQuestion();
                 } else {
                     alert(jsonObject.message);
                 }
@@ -113,12 +115,25 @@ function answer(type, ButtonInputResponse = null) { //TODO: Look again into hidi
         });
 
 }
-
+function score(){
+    fetch(`https://codecyprus.org/th/api/score?session=${sessionID}`)
+        .then(result=>result.json())
+        .then(jsonifiedobject=>{
+            if(jsonifiedobject.status=="OK"){
+                playerscore.innerHTML=`Your score:${jsonifiedobject.score}`;
+            }
+        })
+}
 function skipper() {
     fetch(`https://codecyprus.org/th/api/skip?session=${sessionID}`)
         .then(response => response.json())
         .then(jsonObject => {
-            if (jsonObject.status === "OK") {
+            if (jsonObject.status == "OK") {
+                boolAnswerBlock.style.display = "none";
+                intAnswerBlock.style.display = "none";
+                numAnswerBlock.style.display = "none";
+                mcqAnswerBlock.style.display = "none";
+                textAnswerBlock.style.display = "none";
                 getQuestion();
             } else {
                 console.log(jsonObject);
@@ -127,8 +142,17 @@ function skipper() {
         })
 }
 
+function set_scoreboard(){
+    fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=8`)
+
+
+
+
+}
+
 
 getQuestion();
 
 
 //TODO:4)Implement location functionality
+//TODO:5)QRCode Reader

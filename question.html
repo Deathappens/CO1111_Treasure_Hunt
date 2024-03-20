@@ -9,20 +9,18 @@
 <h1 id="questionNo"></h1>
 
 <p id="questionText"></p>
-
-
 <div id="textAnswerBlock" style="display:none">
-    <input type="text" id="textAnswerField">
+    <input type="text" id="textAnswerField" required>
     <input type="button" value="Submit" onclick="answer('TEXT')"/>
 </div>
 
 <div id="numAnswerBlock" style="display:none">
-    <input type="number" id="numAnswerField">
+    <input type="number" id="numAnswerField" required>
     <input type="button" value="Submit" onclick="answer('NUMERIC')"/>
 </div>
 
 <div id="intAnswerBlock" style="display:none">
-    <input type="number" id="intAnswerField" >
+    <input type="number" id="intAnswerField" required >
     <input type="button" value="Submit" onclick="answer('INTEGER')"/>
 </div>
 
@@ -42,7 +40,18 @@
     </div>
 </div>
 
-<input style="visibility:hidden" type="button" id="skipbutton" value="Skip Question?" onclick="skipper()">
+<input style="display: none" type="button" id="skipbutton" value="Skip Question?" onclick="skipper()">
+
+<div style='display: flex' id="scoreboardiv"></div>
+
+<h3 id="playerscoreheading"></h3>
+<h1>Scoreboard</h1>
+<div id="innerscoreboardiv" style="display: flex">
+
+</div>
+
+
+
 
 <script src="js/questions.js"></script>
 
