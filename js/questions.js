@@ -38,7 +38,7 @@ function getQuestion() {
 
                 }
                     score();
-                    scoreboard();
+                    set_scoreboard();
 
                 if (jsonObject.canBeSkipped == true) {
                     skipbutton.style.display = "flex";
@@ -55,6 +55,7 @@ function getQuestion() {
 }
 
 function answer(type, BoolButtonValue = null) {
+    event.preventDefault();
     let answerValue;
     switch (type) {
         case "TEXT":
@@ -144,8 +145,19 @@ function skipper() {
 
 function set_scoreboard(){
     fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=8`)
+        .then(response=>response.json())
+        .then(jsonobject=>{
+            console.log(jsonobject);
+            for (let i = 0; i < jsonobject.leaderboard.length; i++) {
+                scorespan=document.createElement("span");
+                scorespan.className="scorespans";
+                scorespan.style.margin="2px";
+                scorespan.innerText=`${i}: Player name: ${jsonobject.leaderboard[i].player}, Score:${jsonobject.leaderboard[i].score} `;
+                scoreboard.appendChild(scorespan); //TODO: make this update the scoreboard rather than append to it after the first time
+            }
 
 
+        });
 
 
 }

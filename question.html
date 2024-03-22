@@ -10,18 +10,24 @@
 
 <p id="questionText"></p>
 <div id="textAnswerBlock" style="display:none">
+    <form>
     <input type="text" id="textAnswerField" required>
-    <input type="button" value="Submit" onclick="answer('TEXT')"/>
+    <input type="submit" value="Submit" onclick="answer('TEXT')"/>
+    </form>
 </div>
 
 <div id="numAnswerBlock" style="display:none">
+    <form>
     <input type="number" id="numAnswerField" required>
-    <input type="button" value="Submit" onclick="answer('NUMERIC')"/>
+    <input type="submit" value="Submit" onclick="answer('NUMERIC')"/>
+    </form>
 </div>
 
 <div id="intAnswerBlock" style="display:none">
+    <form>
     <input type="number" id="intAnswerField" required >
-    <input type="button" value="Submit" onclick="answer('INTEGER')"/>
+    <input type="submit" value="Submit" onclick="answer('INTEGER')"/>
+    </form>
 </div>
 
 <div id="boolAnswerBlock" style="display:none">
@@ -46,7 +52,7 @@
 
 <h3 id="playerscoreheading"></h3>
 <h1>Scoreboard</h1>
-<div id="innerscoreboardiv" style="display: flex">
+<div id="innerscoreboardiv" style="border:solid black 1px;   display: grid">
 
 </div>
 
