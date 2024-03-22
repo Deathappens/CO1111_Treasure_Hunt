@@ -38,7 +38,7 @@ function getQuestion() {
 
                 }
                     score();
-                    set_scoreboard();
+                    update_scoreboard();
 
                 if (jsonObject.canBeSkipped == true) {
                     skipbutton.style.display = "flex";
@@ -151,20 +151,28 @@ function set_scoreboard(){
             for (let i = 0; i < jsonobject.leaderboard.length; i++) {
                 scorespan=document.createElement("span");
                 scorespan.className="scorespans";
+                scorespan.id="scorespan"+i;
                 scorespan.style.margin="2px";
-                scorespan.innerText=`${i}: Player name: ${jsonobject.leaderboard[i].player}, Score:${jsonobject.leaderboard[i].score} `;
+                scorespan.innerText=`${i+1}: Player name: ${jsonobject.leaderboard[i].player}, Score:${jsonobject.leaderboard[i].score} `;
                 scoreboard.appendChild(scorespan); //TODO: make this update the scoreboard rather than append to it after the first time
             }
-
-
         });
-
 
 }
 
+function update_scoreboard(){
+    fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=8`)
+        .then(response=>response.json())
+        .then(jsonobject=>{
+            for (let i = 0; i < jsonobject.leaderboard.length; i++) {
+                let updated_span=document.getElementById(`scorespan${i}`);
+                updated_span.innerText=`${i+1}: Player name: ${jsonobject.leaderboard[i].player}, Score:${jsonobject.leaderboard[i].score}`;
+            }
+        });
 
+}
+set_scoreboard();
 getQuestion();
-
 
 //TODO:4)Implement location functionality
 //TODO:5)QRCode Reader
