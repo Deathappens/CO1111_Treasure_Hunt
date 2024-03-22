@@ -1,81 +1,137 @@
-body{
-    margin-top:0px;
-    margin-right:0px;
-    margin-left:0px;
-    margin-bottom:0px;
-    padding: 0px;
-    height:100vh;
-    background-color: pink;
-  }
-html{
-    margin-top:0px;
-    margin-right:0px;
-    margin-left:0px;
-    margin-bottom:0px;
-    padding: 0px;
-    height:100vh;
-    background-color: pink;
-  }
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(to right, #ffe5b4, #fec89a); /* Subtle gradient background */
+    font-family: 'Open Sans', sans-serif; /* Modern, readable font */
+}
 
-button{
+header, footer {
+    background-color: #fff; /* Light background for header and footer */
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Soft shadow for depth */
+}
+
+.name h1 {
+    margin: 0;
+    color: #333; /* Darker text for better contrast */
+    font-weight: 300; /* Lighter font-weight */
+    text-align: center;
+}
+
+p {
+    text-align:  center;
+    font-family: Arial;
+    font-size: 24px;
+}
+
+.buttonc {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0; /* More breathing space around button */
+}
+
+#submitbutton {
     width: 200px;
     height: 50px;
-  font-size: 16px;
-  margin: 4px;
-  border-radius: 5px;
-  
+    font-size: 18px; /* Slightly larger font size for button */
+    background-color: #4CAF50; /* A more vibrant button color */
+    color: white;
+    border: none;
+    border-radius: 25px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    cursor: pointer; /* Cursor effect to indicate button */
 }
-.Names{
-    text-align: center;
+
+button {
+    width: 200px;
+    height: 50px;
+    font-size: 18px; /* Slightly larger font size for button */
+    background-color: #4CAF50; /* A more vibrant button color */
+    color: white;
+    border: none;
+    border-radius: 25px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    cursor: pointer; /* Cursor effect to indicate button */
 }
-.buttonc
-{
-    display: flex;
-    align-content: center;
-    justify-content: center;
+
+button:hover {
+    background-color: #45a049; /* Darker shade on hover */
 }
-.twitter{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-content: center;
-    flex-wrap: wrap;
+
+
+.Names, .links, .twitter, .grid-container {
+    color: #333; /* Consistent text color */
 }
-.app 
-{
-    text-decoration: none;
-    color: black;
-}
-.que
-{
-    text-decoration: none;
-    color: black;
-}
-.links
-{
-    text-align: center;
-    position: relative;
-}
-.name
-{
-    text-align: center;
-}
+
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto;
-    background-color: lightgray;
-    padding: 10px;
-  }
-  .grid-item {
-    background-color: lightgray;
-    padding: 20px;
-    text-align: center;
-  }
-  header{
-    background-color: lightgray;
-    margin: 0px;
-  }
-  footer{
-    background-color: lightgray;
-    margin: 0px;
-  }
+    grid-template-columns: repeat(3, 1fr); /* Responsive grid layout */
+    gap: 15px; /* Spacing between grid items */
+    align-items: start; /* Align grid items to the start */
+}
+
+.grid-item {
+    padding: 15px;
+    background-color: #f9f9f9; /* Lighter grey background for grid items */
+    border-radius: 8px; /* Rounded corners for grid items */
+    transition: transform 0.3s ease; /* Animation on hover */
+}
+
+.grid-item:hover {
+    transform: translateY(-5px); /* Slight raise effect on hover */
+}
+
+.social-media a {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.social-media a:hover {
+    opacity: 0.7; /* Opacity change on hover for social links */
+}
+
+footer a {
+    color: #555;
+
+    text-decoration: none; /* Remove underline from links */
+    transition: color 0.3s ease; /* Color transition for hover effect */
+}
+
+footer a:hover {
+    color: #000; /* Darker text on hover */
+}
+
+/* Social Media Icons */
+.twitter::before, .insta::before {
+    display: inline-block;
+    margin-right: 8px;
+    font-family: 'Font Awesome 5 Free'; /* Assuming Font Awesome is used */
+    font-weight: 900; /* Necessary for solid icons */
+}
+
+.twitter::before {
+    content: '\f099'; /* Twitter icon unicode */
+}
+
+.insta::before {
+    content: '\f16d'; /* Instagram icon unicode */
+}
+
+/* Footer name list */
+.Names p {
+    margin: 5px 0; /* Uniform spacing for names */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Stack grid items on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    button {
+        width: 150px; /* Smaller button on mobile devices */
+    }
+}
