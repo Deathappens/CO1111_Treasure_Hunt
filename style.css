@@ -114,6 +114,14 @@ footer a:hover {
     content: '\f099'; /* Twitter icon unicode */
 }
 
+.twitter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .insta::before {
     content: '\f16d'; /* Instagram icon unicode */
 }
