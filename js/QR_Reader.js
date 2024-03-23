@@ -30,8 +30,9 @@ function start_scan() {
     scanner.addListener('scan', function (content) {
         scancontent.innerHTML=content;
     });
+
 }
 
 function stopScan(){
-
+scanner.stop(cameras[0]);
 }
