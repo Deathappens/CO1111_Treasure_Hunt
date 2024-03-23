@@ -23,8 +23,8 @@
             border-bottom: 1px solid black;
         }
 
-
     </style>
+    <link rel='stylesheet' href='style.css'>
     <title>Quiz list</title>
 </head>
 <body>
@@ -32,15 +32,12 @@
     <h1>Welcome to the Quiz list!</h1>
 </header>
 <h2>Please provide your team's data so you can start a quiz!</h2>
-<form method=post onsubmit="getquizlist(event)">
+<form method=post onsubmit="formInputValidator(event)">
     <p>
         <label>Player Name
-            <input type="text" name="pname" id="pname"></label>
+            <input type="text" name="pname" id="pname" placeholder="Player name here" required minlength="3" maxlength="10"></label>
     </p>
-    <p>
-        <label>Name of the app used <input type="text" name="appname" id="appname"></label>
-    </p>
-    <input type="submit">
+    <input type="submit" value="Submit" id="submitbutton">
 
 </form>
 
@@ -49,8 +46,32 @@
 
 
 </div>
+<script src="js/cookies.js"></script>
 <script src="js/app.js"></script>
 
-<footer></footer>
+<footer>
+    <div class="grid-container">
+        <div class="grid-item">
+            <H4>
+                Social Media
+            </H4>
+            <a class="twitter" href="https://twitter.com/TreasureAVRS">Twitter</a>
+            <a class="insta" href="https://www.instagram.com/treasureavrs/?hl=en">Instagram</a>
+        </div>
+        <div class="grid-item">
+            <div class="Names">
+                <h1 class="header">Names:</h1>
+                <P>vasilii </P>
+                <P>alex </P>
+                <P>robert </P>
+                <P>nicolas </P><br>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</footer>
 </body>
 </html>

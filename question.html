@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question</title>
+</head>
+<body>
+<header>
+    <div class="head">
+        <div class="name">
+            <h1>Treasure Hunt</h1>
+        </div>
+        <div class="links">
+            <a class="app" href="app.html">App</a>
+            <a class="que" href="question.html">Questions</a>
+            
+
+        </div>
+    </div>
+</header>
+<script src="js/cookies.js"></script>
+<h1 id="questionNo"></h1>
+
+<p id="questionText"></p>
+<div id="textAnswerBlock" style="display:none">
+    <form>
+    <input type="text" id="textAnswerField" required>
+    <input type="submit" value="Submit" onclick="answer('TEXT')"/>
+    </form>
+</div>
+
+<div id="numAnswerBlock" style="display:none">
+    <form>
+    <input type="number" id="numAnswerField" required>
+    <input type="submit" value="Submit" onclick="answer('NUMERIC')"/>
+    </form>
+</div>
+
+<div id="intAnswerBlock" style="display:none">
+    <form>
+    <input type="number" id="intAnswerField" required >
+    <input type="submit" value="Submit" onclick="answer('INTEGER')"/>
+    </form>
+</div>
+
+<div id="boolAnswerBlock" style="display:none">
+    <input type="button" value="True" onclick="answer('BOOLEAN','true')">
+    <input type="button" value="False" onclick="answer('BOOLEAN','false')">
+
+</div>
+
+<div id="mcqAnswerBlock" style="display:none">
+    <div style=" display:grid; grid-template-columns:auto auto ">
+        <input type="button" value="A" onclick="answer('MCQ','A')">
+        <input type="button" value="B" onclick="answer('MCQ','B')">
+        <input type="button" value="C" onclick="answer('MCQ','C')">
+        <input type="button" value="D" onclick="answer('MCQ','D')">
+
+    </div>
+</div>
+
+<input style="display: none" type="button" id="skipbutton" value="Skip Question?" onclick="skipper()">
+
+
+
+
+
+
+<div style='display: flex' id="scoreboardiv"></div>
+
+<h3 id="playerscoreheading"></h3>
+<h1>Scoreboard</h1>
+<div id="innerscoreboardiv" style="border:solid black 1px;   display: grid">
+
+</div>
+
+
+
+
+<script src="js/questions.js"></script>
+
+
+</body>
+</html>
+
