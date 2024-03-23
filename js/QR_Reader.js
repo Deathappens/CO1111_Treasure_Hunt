@@ -1,4 +1,4 @@
-
+//Code for QR Scanner taken primarily from Sem2Week4 lab worksheet
 
 var options = {
     continuous: true,
@@ -20,6 +20,7 @@ function start_scan() {
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
             scanner.start(cameras[0]);
+            window.cameras = cameras;
         } else {
             console.error('No cameras found.');
             alert("No cameras found.");
@@ -34,5 +35,5 @@ function start_scan() {
 }
 
 function stopScan(){
-scanner.stop(cameras[0]);
+scanner.stop(window.cameras[0]);
 }

@@ -13,7 +13,7 @@ function getQuestion() {
     fetch(`https://codecyprus.org/th/api/question?session=${sessionID}`)
         .then(response => response.json())
         .then(jsonObject => {
-            console.log(jsonObject); //TODO:what if getquestion returns a status other than OK
+         //TODO:what if getquestion returns a status other than OK
             if (jsonObject.completed === false) {
                 questionTextElement.innerHTML = jsonObject.questionText;
                 qNoHeader.innerText = `Question ${(jsonObject.currentQuestionIndex + 1)}/${jsonObject.numOfQuestions}`;
@@ -84,7 +84,6 @@ function answer(type, BoolButtonValue = null) {
     fetch(`https://codecyprus.org/th/api/answer?session=${sessionID}&answer=${answerValue}`)
         .then(response => response.json())
         .then(jsonObject => {
-            console.log(jsonObject);
             if (jsonObject.status === "OK") {
                 if (jsonObject.correct) {
                     alert(jsonObject.message);
@@ -137,17 +136,15 @@ function skipper() {
                 textAnswerBlock.style.display = "none";
                 getQuestion();
             } else {
-                console.log(jsonObject);
                 alert(jsonObject.errorMessages);
             }
         })
 }
 
-function set_scoreboard(){
+function set_scoreboard(){ //this function only runs once to create the appropriate number of span objects and populate them with the appropriate players and their scores.
     fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=8`)
         .then(response=>response.json())
         .then(jsonobject=>{
-            console.log(jsonobject);
             for (let i = 0; i < jsonobject.leaderboard.length; i++) {
                 scorespan=document.createElement("span");
                 scorespan.className="scorespans";
@@ -160,7 +157,7 @@ function set_scoreboard(){
 
 }
 
-function update_scoreboard(){
+function update_scoreboard(){ //this function runs every time a new question is requested and updates the previously created spans in the scoreboard with the new, appropriate scores.
     fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=8`)
         .then(response=>response.json())
         .then(jsonobject=>{
