@@ -1,4 +1,3 @@
-import * as secondScript from '/js/instascan.min.js';
 
 
 var options = {
@@ -11,10 +10,14 @@ var options = {
     scanPeriod: 1
 };
 
-var scanner = new secondScript.Scanner(options);
+var scanner = new Instascan.Scanner(options);
 
 function start_scan() {
-    secondScript.Camera.getCameras().then(function (cameras) {
+    let popupwindow= document.getElementById("popup");
+    let scancontent=document.getElementById("scanned_content");
+        popupwindow.style.display="flex";
+
+    Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
             scanner.start(cameras[0]);
         } else {
@@ -25,9 +28,7 @@ function start_scan() {
         console.error(e);
     });
     scanner.addListener('scan', function (content) {
-      let popupwindow= document.getElementById("popup").
-           popupwindow.innerHTML = content;
-         popupwindow.style.display=flex;
+        scancontent.innerHTML=content;
     });
 }
 
