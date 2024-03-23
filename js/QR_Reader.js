@@ -3,19 +3,19 @@
 var options = {
     continuous: true,
     video: document.getElementById('preview'),
-    mirror: true,
-    captureImage: false,
+    mirror: false,
+    captureImage: true,
     backgroundScan: true,
     refractoryPeriod: 5000,
     scanPeriod: 1
 };
 
 var scanner = new Instascan.Scanner(options);
+var scancontent=document.getElementById("scanned_content");
 
 function start_scan() {
     let popupwindow= document.getElementById("popup");
-    let scancontent=document.getElementById("scanned_content");
-        popupwindow.style.display="flex";
+    popupwindow.style.visibility="visible";
 
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
@@ -28,12 +28,16 @@ function start_scan() {
     }).catch(function (e) {
         console.error(e);
     });
+
     scanner.addListener('scan', function (content) {
-        scancontent.innerHTML=content;
+
+        scancontent.innerHTML="QR Code detected! Its output is:"+content;
     });
 
 }
 
-function stopScan(){
-scanner.stop(window.cameras[0]);
+function stop_scan(){
+    let popupwindow= document.getElementById("popup");
+    scanner.stop(window.cameras[0]);
+    popupwindow.style.visibility="collapse";
 }
