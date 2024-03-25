@@ -13,6 +13,7 @@ function formInputValidator(event) {
         if(input_valid) {
             button.value = "Refresh the page if you wish to change your info!";
             button.disabled = true;
+            button.style.color=grey;
             getQuizList();
         }else{
             alert("The provided player name was not valid (only alphabetical characters allowed)");

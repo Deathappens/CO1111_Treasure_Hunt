@@ -7,14 +7,14 @@ body {
 }
 
 header, footer {
-    background-color: #fff; /* Light background for header and footer */
+    background-color: #522e03; /* Light background for header and footer */
     padding: 20px 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Soft shadow for depth */
 }
 
 .name h1 {
     margin: 0;
-    color: #333; /* Darker text for better contrast */
+    color: #ffffff; /* Darker text for better contrast */
     font-weight: 300; /* Lighter font-weight */
     text-align: center;
 }
@@ -41,11 +41,16 @@ p {
     border-radius: 25px; /* Rounded corners */
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
     cursor: pointer; /* Cursor effect to indicate button */
+    position: absolute; /* Position absolute for centering */
+    left: 50%; /* Position from the left */
+    transform: translate(-50%, -50%); /* Center the button */
 }
+
 
 button {
     width: 200px;
     height: 50px;
+    justify-content: center;
     font-size: 18px; /* Slightly larger font size for button */
     background-color: #4CAF50; /* A more vibrant button color */
     color: white;
@@ -73,7 +78,7 @@ button:hover {
 
 .grid-item {
     padding: 15px;
-    background-color: #f9f9f9; /* Lighter grey background for grid items */
+    background: linear-gradient(to right, #faf8f4, #f3c79a);
     border-radius: 8px; /* Rounded corners for grid items */
     transition: transform 0.3s ease; /* Animation on hover */
 }
@@ -91,21 +96,46 @@ button:hover {
     opacity: 0.7; /* Opacity change on hover for social links */
 }
 
-footer a {
-    color: #555;
-
-    text-decoration: none; /* Remove underline from links */
-    transition: color 0.3s ease; /* Color transition for hover effect */
+footer {
+    background-color: #522e03; /* Semi-transparent black background */
+    padding: 40px 0; /* Increased padding for better spacing */
+    text-align: center; /* Center align footer content */
+    color: #fff; /* White text color for better contrast */
 }
 
-footer a:hover {
-    color: #000; /* Darker text on hover */
+.footer-content {
+    max-width: 800px; /* Limit width of footer content for better readability */
+    margin: 0 auto; /* Center align footer content */
 }
+
+.footer-content p {
+    font-size: 16px; /* Adjust font size for better readability */
+    line-height: 1.5; /* Improved line spacing */
+}
+
+.separator {
+    border-top: 1px solid #fff; /* White separator for contrast */
+    margin: 20px 0; /* Space above and below separator */
+}
+
+.social-media a {
+    display: inline-block;
+    margin: 0 10px; /* Spacing between social media icons */
+    font-size: 24px; /* Larger size for social media icons */
+    color: #fff; /* White color for social media icons */
+}
+
+.social-media a:hover {
+    color: #ccc; /* Lighter color on hover */
+}
+
+
 
 /* Social Media Icons */
 .twitter::before, .insta::before {
     display: inline-block;
     margin-right: 8px;
+    margin-bottom: 57px;
     font-family: 'Font Awesome 5 Free'; /* Assuming Font Awesome is used */
     font-weight: 900; /* Necessary for solid icons */
 }
@@ -130,6 +160,14 @@ footer a:hover {
 .Names p {
     margin: 5px 0; /* Uniform spacing for names */
 }
+#questionnaire {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 100vh; /* Make it take up the full height of the viewport */
+}
+
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {

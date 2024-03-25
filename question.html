@@ -3,28 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Question</title>
-    <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
-<header>
-            <h1>Treasure Hunt</h1>
-
-<input type="button" value="Press here to open QR Reader!" class="buttonc" onclick="start_scan()">
-    <div id="popup" style="display:flex; visibility: collapse">
-        <video id="preview"></video>
-        <div id="scanned_content"></div>
-        <input type="button" value="Press here to close the QR reader" class="buttonc" onclick="stop_scan()">
-
-    </div>
-
-
-    <div class="links">
-        <a class="app" href="app.html">App</a>
-        <a class="que" href="question.html">Questions</a>
-    </div>
-
-</header>
 <script src="js/cookies.js"></script>
 <h1 id="questionNo"></h1>
 
@@ -68,11 +48,6 @@
 
 <input style="display: none" type="button" id="skipbutton" value="Skip Question?" onclick="skipper()">
 
-
-
-
-
-
 <div style='display: flex' id="scoreboardiv"></div>
 
 <h3 id="playerscoreheading"></h3>
@@ -85,8 +60,6 @@
 
 
 <script src="js/questions.js"></script>
-<script src="js/instascan.min.js"></script>
-<script src="js/QR_Reader.js"></script>
 
 
 </body>
