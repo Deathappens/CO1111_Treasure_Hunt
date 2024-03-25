@@ -7,13 +7,15 @@ const intAnswerBlock = document.getElementById("intAnswerBlock");
 const numAnswerBlock = document.getElementById("numAnswerBlock");
 const mcqAnswerBlock = document.getElementById("mcqAnswerBlock");
 const boolAnswerBlock = document.getElementById("boolAnswerBlock");
-const playerscore=document.getElementById("playerscoreheading");
-const scoreboard=document.getElementById("innerscoreboardiv");
+const playerscore = document.getElementById("playerscoreheading");
+const scoreboard = document.getElementById("innerscoreboardiv");
+
 function getQuestion() {
     fetch(`https://codecyprus.org/th/api/question?session=${sessionID}`)
         .then(response => response.json())
         .then(jsonObject => {
-         //TODO:what if getquestion returns a status other than OK
+            console.log(jsonObject);
+            //TODO:what if getquestion returns a status other than OK
             if (jsonObject.completed === false) {
                 questionTextElement.innerHTML = jsonObject.questionText;
                 qNoHeader.innerText = `Question ${(jsonObject.currentQuestionIndex + 1)}/${jsonObject.numOfQuestions}`;
@@ -37,21 +39,40 @@ function getQuestion() {
                         break;
 
                 }
-                    score();
-                    update_scoreboard();
+                if (jsonObject.requiresLocation == true) {
+                    console.log("attempting to send location");
+                    get_location();
+                }
+                score();
+                update_scoreboard();
 
                 if (jsonObject.canBeSkipped == true) {
                     skipbutton.style.display = "flex";
-                }else{
-                    skipbutton.style.display="none";
+                } else {
+                    skipbutton.style.display = "none";
                 }
 
 
-            }else{
-                questionTextElement.innerHTML="<h1>Congratulations! You have finished the quiz!</h1>"
-                skipbutton.style.display="none";
+            } else {
+                questionTextElement.innerHTML = "<h1>Congratulations! You have finished the quiz!</h1>"
+                skipbutton.style.display = "none";
             }
         });
+}
+
+ function get_location() {
+    if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(send_location);
+    } else {
+        alert("Please enable geolocation on your device to continue");
+    }
+}
+     function send_location(position){
+    console.log("The latitude is"+position.coords.latitude+"and the longtitude is"+position.coords.longitude);
+    fetch(`https://codecyprus.org/th/api/location?session=${sessionID}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`)
+            .then(reply => reply.json())
+            .then(object => console.log(object));
+
 }
 
 function answer(type, BoolButtonValue = null) {
@@ -87,7 +108,7 @@ function answer(type, BoolButtonValue = null) {
             if (jsonObject.status === "OK") {
                 if (jsonObject.correct) {
                     alert(jsonObject.message);
-                    switch(type){
+                    switch (type) {
                         case "BOOLEAN":
                             boolAnswerBlock.style.display = "none";
                             break;
@@ -115,15 +136,17 @@ function answer(type, BoolButtonValue = null) {
         });
 
 }
-function score(){
+
+function score() {
     fetch(`https://codecyprus.org/th/api/score?session=${sessionID}`)
-        .then(result=>result.json())
-        .then(jsonifiedobject=>{
-            if(jsonifiedobject.status=="OK"){
-                playerscore.innerHTML=`Your score:${jsonifiedobject.score}`;
+        .then(result => result.json())
+        .then(jsonifiedobject => {
+            if (jsonifiedobject.status == "OK") {
+                playerscore.innerHTML = `Your score:${jsonifiedobject.score}`;
             }
         })
 }
+
 function skipper() {
     fetch(`https://codecyprus.org/th/api/skip?session=${sessionID}`)
         .then(response => response.json())
@@ -141,33 +164,39 @@ function skipper() {
         })
 }
 
-function set_scoreboard(){ //this function only runs once to create the appropriate number of span objects and populate them with the appropriate players and their scores.
+function set_scoreboard() { //this function only runs once to create the appropriate number of span objects and populate them with the appropriate players and their scores.
     fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=8`)
-        .then(response=>response.json())
-        .then(jsonobject=>{
+        .then(response => response.json())
+        .then(jsonobject => {
             for (let i = 0; i < jsonobject.leaderboard.length; i++) {
-                scorespan=document.createElement("span");
-                scorespan.className="scorespans";
-                scorespan.id="scorespan"+i;
-                scorespan.style.margin="2px";
-                scorespan.innerText=`${i+1}: Player name: ${jsonobject.leaderboard[i].player}, Score:${jsonobject.leaderboard[i].score} `;
+
+                let full_name = jsonobject.leaderboard[i].player;
+                let trunc_name = full_name.substring(0, 15); //since some people seemed to find it funny to spam the API with long names, this will ensure the scoreboard remains uniform in composition by truncating the players' name strings. Should probably have implemented checks for other strings the API returns as well but they were considered 'trusted'.
+                scorespan = document.createElement("span");
+                scorespan.className = "scorespans";
+                scorespan.id = "scorespan" + i;
+                scorespan.style.margin = "2px";
+                scorespan.innerText = `${i + 1}: Player name: ${trunc_name}, Score:${jsonobject.leaderboard[i].score} `;
                 scoreboard.appendChild(scorespan); //TODO: make this update the scoreboard rather than append to it after the first time
             }
         });
 
 }
 
-function update_scoreboard(){ //this function runs every time a new question is requested and updates the previously created spans in the scoreboard with the new, appropriate scores.
+function update_scoreboard() { //this function runs every time a new question is requested and updates the previously created spans in the scoreboard with the new, appropriate scores.
     fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=8`)
-        .then(response=>response.json())
-        .then(jsonobject=>{
+        .then(response => response.json())
+        .then(jsonobject => {
             for (let i = 0; i < jsonobject.leaderboard.length; i++) {
-                let updated_span=document.getElementById(`scorespan${i}`);
-                updated_span.innerText=`${i+1}: Player name: ${jsonobject.leaderboard[i].player}, Score:${jsonobject.leaderboard[i].score}`;
+                let updated_span = document.getElementById(`scorespan${i}`);
+                let full_name = jsonobject.leaderboard[i].player;
+                let trunc_name = full_name.substring(0, 15);
+                updated_span.innerText = `${i + 1}: Player name: ${trunc_name}, Score:${jsonobject.leaderboard[i].score}`;
             }
         });
 
 }
+
 set_scoreboard();
 getQuestion();
 

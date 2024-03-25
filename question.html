@@ -10,11 +10,11 @@
 <header>
             <h1>Treasure Hunt</h1>
 
-<input type="button" value="Press here to open QR Reader!" class="buttonc" onclick="start_scan()">
-    <div id="popup" style="display:flex; visibility: collapse">
+<input type="button" value="Press here to open QR Reader!" onclick="start_scan()">
+    <div id="popup" style="display:none">
         <video id="preview"></video>
         <div id="scanned_content"></div>
-        <input type="button" value="Press here to close the QR reader" class="buttonc" onclick="stop_scan()">
+        <input type="button" value="Press here to close the QR reader" onclick="stop_scan()">
 
     </div>
 

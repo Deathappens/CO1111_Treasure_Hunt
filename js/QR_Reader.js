@@ -15,7 +15,7 @@ var scancontent=document.getElementById("scanned_content");
 
 function start_scan() {
     let popupwindow= document.getElementById("popup");
-    popupwindow.style.visibility="visible";
+    popupwindow.style.display="flex";
 
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
@@ -39,5 +39,5 @@ function start_scan() {
 function stop_scan(){
     let popupwindow= document.getElementById("popup");
     scanner.stop(window.cameras[0]);
-    popupwindow.style.visibility="collapse";
+    popupwindow.style.display="none";
 }
