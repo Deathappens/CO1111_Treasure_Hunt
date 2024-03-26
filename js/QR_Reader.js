@@ -21,7 +21,7 @@ function start_scan() {
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
             scanner.start(cameras[active_cam]);
-            window.cameras = cameras;
+            sessionStorage.camerastorage = cameras;
         } else {
             console.error('No cameras found.');
             alert("No cameras found.");
@@ -39,13 +39,13 @@ function start_scan() {
 
 function stop_scan() {
     let popupwindow = document.getElementById("popup");
-    scanner.stop(window.cameras[active_cam]);
+    scanner.stop(active_cam);
     popupwindow.style.display = "none";
 }
 
 function camera_cycle() {
     scanner.stop(active_cam);
-    if (active_cam <= window.cameras.length) {
+    if (active_cam < sessionStorage.camerastorage.length) {
         active_cam++;
     } else {
         active_cam=0;
