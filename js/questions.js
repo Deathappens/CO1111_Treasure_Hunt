@@ -60,35 +60,48 @@ function getQuestion() {
         });
 }
 
- function get_location() {
+function get_location() {
     if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(send_location);
+        navigator.geolocation.getCurrentPosition(send_location);
     } else {
         alert("Please enable geolocation on your device to continue");
     }
 }
-     function send_location(position){
-    console.log("The latitude is"+position.coords.latitude+"and the longtitude is"+position.coords.longitude);
+
+function send_location(position) {
+    console.log("The latitude is" + position.coords.latitude + "and the longtitude is" + position.coords.longitude);
     fetch(`https://codecyprus.org/th/api/location?session=${sessionID}&latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`)
-            .then(reply => reply.json())
-            .then(object => console.log(object));
+        .then(reply => reply.json())
+        .then(object => console.log(object));
 
 }
 
 function answer(type, BoolButtonValue = null) {
     event.preventDefault();
     let answerValue;
+    let alphabetregex = /^[a-zA-Z0-9]+$/; //Regular expression found in https://www.w3resource.com/javascript/form/all-letters-field.php;
+
     switch (type) {
         case "TEXT":
-            const TextAnswerFieldElement = document.getElementById("textAnswerField");
-            answerValue = TextAnswerFieldElement.value;
-            TextAnswerFieldElement.value = "";
-
+            let TextAnswerFieldElement = document.getElementById("textAnswerField");
+            if (alphabetregex.test(TextAnswerFieldElement.value)) { //ensuring the answer given is alphanumeric-that is, letters and numbers only
+                answerValue = TextAnswerFieldElement.value;
+                TextAnswerFieldElement.value = "";
+            } else {
+                alert("Invalid input: No special characters allowed");
+                return;
+            }
             break;
         case "INTEGER":
             const IntAnswerFieldElement = document.getElementById("intAnswerField");
-            answerValue = IntAnswerFieldElement.value;
-            IntAnswerFieldElement.value = "";
+            let numberfiedstring=Number(IntAnswerFieldElement.value);
+            if (Number.isInteger(numberfiedstring)) { //The point of differentiating between number questions and integer questions is that integer questions only accept integers as a response
+                answerValue = IntAnswerFieldElement.value;
+                IntAnswerFieldElement.value = "";
+            } else {
+                alert("Invalid input: Number given must be an integer");
+                return;
+            }
             break;
         case"NUMERIC":
             const NumAnswerFieldElement = document.getElementById("numAnswerField");
@@ -128,6 +141,7 @@ function answer(type, BoolButtonValue = null) {
                     getQuestion();
                 } else {
                     alert(jsonObject.message);
+                    score();
                 }
             } else {
                 alert(jsonObject.errorMessages);
@@ -148,24 +162,26 @@ function score() {
 }
 
 function skipper() {
-    fetch(`https://codecyprus.org/th/api/skip?session=${sessionID}`)
-        .then(response => response.json())
-        .then(jsonObject => {
-            if (jsonObject.status == "OK") {
-                boolAnswerBlock.style.display = "none";
-                intAnswerBlock.style.display = "none";
-                numAnswerBlock.style.display = "none";
-                mcqAnswerBlock.style.display = "none";
-                textAnswerBlock.style.display = "none";
-                getQuestion();
-            } else {
-                alert(jsonObject.errorMessages);
-            }
-        })
+    if (confirm("Are you sure you want to skip this question? This will negatively impact your score")) {
+        fetch(`https://codecyprus.org/th/api/skip?session=${sessionID}`)
+            .then(response => response.json())
+            .then(jsonObject => {
+                if (jsonObject.status == "OK") {
+                    boolAnswerBlock.style.display = "none";
+                    intAnswerBlock.style.display = "none";
+                    numAnswerBlock.style.display = "none";
+                    mcqAnswerBlock.style.display = "none";
+                    textAnswerBlock.style.display = "none";
+                    getQuestion();
+                } else {
+                    alert(jsonObject.errorMessages);
+                }
+            })
+    }
 }
 
 function set_scoreboard() { //this function only runs once to create the appropriate number of span objects and populate them with the appropriate players and their scores.
-    fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=8`)
+    fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=5`)//on the actual question page only the top 5 will be displayed
         .then(response => response.json())
         .then(jsonobject => {
             for (let i = 0; i < jsonobject.leaderboard.length; i++) {
@@ -184,7 +200,7 @@ function set_scoreboard() { //this function only runs once to create the appropr
 }
 
 function update_scoreboard() { //this function runs every time a new question is requested and updates the previously created spans in the scoreboard with the new, appropriate scores.
-    fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=8`)
+    fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=5`)
         .then(response => response.json())
         .then(jsonobject => {
             for (let i = 0; i < jsonobject.leaderboard.length; i++) {
