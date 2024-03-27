@@ -161,23 +161,17 @@ footer {
 }
 
 /* Social Media Icons */
-.twitter::before, .insta::before {
+.twitter_icon::before, .insta::before {
     margin-right: 8px;
     font-family: 'Font Awesome 5 Free'; /* Assuming Font Awesome is used */
     font-weight: 900; /* Necessary for solid icons */
 }
 
-.twitter::before {
-    content: '\f099'; /* Twitter icon unicode */
-    padding-left: 0px;
-}
+
 
 .twitter {
-    padding-left: 0px;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-left: 30px
+    display: grid;
+justify-content: center;
 }
 .insta{
     padding-left: 20px
@@ -433,7 +427,15 @@ input[type="text"]:focus {
 
 
 
-
-
+.welcome{
+    text-align: center;
+}
+.please{
+    text-align: center;
+}
+.slogan{
+    text-align: center;
+    color: white;
+}
 
 
