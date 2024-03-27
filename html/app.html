@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='style.css'>
+
+    <title>Quiz list</title>
+</head>
+<body>
+<header>
+    <h1 class="welcome">Welcome to the Quiz list!</h1>
+    <div class="links">
+        <a href="app.html">App</a>
+        <a id="questpagelink" href="question.html">Questions</a>
+        <a href="index.html">Start Page</a>
+    </div>
+</header>
+<div>
+<h2 class="please">Please provide your team's data so you can start a quiz!</h2>
+<form method=post onsubmit="formInputValidator(event)">
+    <p>
+        <label>Player Name
+            <input type="text" name="pname" id="pname" placeholder="Player name here" required minlength="3" maxlength="10"></label>
+    </p>
+    <br>
+    <br>
+    <input type="submit" value="Submit" id="submitbutton">
+    <br>
+    <br>
+
+</form>
+</div>
+
+
+<div id="quizcontainer">
+
+
+</div>
+
+<footer>
+    <div class="grid-container">
+        <div class="grid-item">
+            <H4>
+                Social Media
+            </H4>
+            <a href="https://twitter.com/TreasureAVRS" target="_blank">
+                <img src="../resources/twitterlogo.png" alt="Twitter" class="twitter" style="width: 100px; height: 100px;">
+            </a>
+            <a href="https://www.instagram.com/treasureavrs/?hl=en">
+                <img src="../resources/instagram.png" alt="insta" class="insta" style="width: 100px; height: 100px;">
+            </a>
+
+
+        </div>
+        <div class="grid-item">
+            <div class="Names">
+                <h1 class="header">Names:</h1>
+                <P>Vasilii </P>
+                <P>Alex </P>
+                <P>Maxim </P>
+                <P>Nikolas </P><br>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</footer>
+<script src="../js/cookies.js"></script>
+<script src="../js/app.js"></script>
+
+</body>
+</html>
