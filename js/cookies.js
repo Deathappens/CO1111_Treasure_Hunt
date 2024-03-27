@@ -21,4 +21,19 @@ function getCookie(cname) {
     return "";
 }
 
-//TODO - Create delete cookie
+
+function magicquestionbutton() {
+   const qbutt=document.getElementById('questpagelink');
+    if (getCookie("sessionID") === "") {
+    qbutt.innerHTML='<a>Start a quiz first</a>';
+    qbutt.classList.add("disabled");
+    console.log("should be disabled now");
+    }else {
+        console.log("didn't disable it");
+        qbutt.innerHTML = '<a href="question.html">Questions</a>';
+        qbutt.classList.remove("disabled");
+    }
+
+}
+
+magicquestionbutton();

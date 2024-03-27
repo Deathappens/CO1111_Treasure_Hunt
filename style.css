@@ -425,6 +425,28 @@ input[type="text"]:focus {
     border-color: #381f02; /* Change border color on focus */
 }
 
+#quizcontainer {
+    display: grid;
+    grid-template-rows: auto auto auto;
+
+}
+
+.quizbox {
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 25%;
+    color: #000000;
+}
+
+.quizboxheader {
+    background-color: #422604;
+    padding: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    color: white;
+}
+
 
 
 .welcome{
@@ -439,3 +461,7 @@ input[type="text"]:focus {
 }
 
 
+.disabled{
+    background-color: grey;
+    color: lightgray;
+}
