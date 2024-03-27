@@ -67,7 +67,7 @@ function getQuizList() {
                 }
 
             } else {
-                alert("There was a problem with the API response");
+                alert("There was a problem with the API response. Please try again!");
             }
         });
 }

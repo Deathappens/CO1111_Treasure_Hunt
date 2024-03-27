@@ -23,17 +23,14 @@ function getCookie(cname) {
 
 
 function magicquestionbutton() {
-   const qbutt=document.getElementById('questpagelink');
+   const qbutt=document.getElementById("questpagelink");
     if (getCookie("sessionID") === "") {
-    qbutt.innerHTML='<a>Start a quiz first</a>'; //this does not currently work wtf
-    qbutt.classList.add("disabled");
+    qbutt.style.display="none";
     console.log("should be disabled now");
     }else {
         console.log("didn't disable it");
-        qbutt.innerHTML = '<a href="question.html">Questions</a>';
-        qbutt.classList.remove("disabled");
+        qbutt.style.display="flex";
     }
 
 }
-
 magicquestionbutton();

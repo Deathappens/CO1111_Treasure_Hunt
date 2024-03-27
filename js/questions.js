@@ -15,47 +15,59 @@ function getQuestion() {
         .then(response => response.json())
         .then(jsonObject => {
             console.log(jsonObject);
-            //TODO:what if getquestion returns a status other than OK
-            if (jsonObject.completed === false) {
-                questionTextElement.innerHTML = jsonObject.questionText;
-                qNoHeader.innerText = `Question ${(jsonObject.currentQuestionIndex + 1)}/${jsonObject.numOfQuestions}`;
+            if (jsonObject.status == 'OK') {
+                if (jsonObject.completed === false) {
+                    questionTextElement.innerHTML = jsonObject.questionText;
+                    qNoHeader.innerText = `Question ${(jsonObject.currentQuestionIndex + 1)}/${jsonObject.numOfQuestions}`;
 
-                switch (jsonObject.questionType) {
+                    switch (jsonObject.questionType) {
 
-                    case "BOOLEAN":
-                        boolAnswerBlock.style.display = "flex";
-                        break;
-                    case "INTEGER":
-                        intAnswerBlock.style.display = "flex";
-                        break;
-                    case "NUMERIC":
-                        numAnswerBlock.style.display = "flex";
-                        break;
-                    case "MCQ":
-                        mcqAnswerBlock.style.display = "flex";
-                        break;
-                    case "TEXT":
-                        textAnswerBlock.style.display = "flex";
-                        break;
+                        case "BOOLEAN":
+                            boolAnswerBlock.style.display = "flex";
+                            break;
+                        case "INTEGER":
+                            intAnswerBlock.style.display = "flex";
+                            break;
+                        case "NUMERIC":
+                            numAnswerBlock.style.display = "flex";
+                            break;
+                        case "MCQ":
+                            mcqAnswerBlock.style.display = "flex";
+                            break;
+                        case "TEXT":
+                            textAnswerBlock.style.display = "flex";
+                            break;
 
-                }
-                if (jsonObject.requiresLocation == true) {
-                    console.log("attempting to send location");
-                    get_location();
-                }
-                score();
-                update_scoreboard();
+                    }
+                    if (jsonObject.requiresLocation == true) {
+                        console.log("attempting to send location");
+                        get_location();
+                    }
+                    score();
+                    update_scoreboard();
 
-                if (jsonObject.canBeSkipped == true) {
-                    skipbutton.style.display = "flex";
+                    if (jsonObject.canBeSkipped == true) {
+                        skipbutton.style.display = "flex";
+                    } else {
+                        skipbutton.style.display = "none";
+                    }
+
+
                 } else {
+                    questionTextElement.innerHTML = "<h1>Congratulations! You have finished the quiz!</h1>"
                     skipbutton.style.display = "none";
                 }
-
-
             } else {
-                questionTextElement.innerHTML = "<h1>Congratulations! You have finished the quiz!</h1>"
-                skipbutton.style.display = "none";
+                console.log(jsonObject.errorMessages);
+                questionTextElement.innerHTML = "<h1>Sorry! An error has occurred!</h1>"
+                let goback = document.createElement("button");
+                goback.innerText = "Go Back";
+                goback.onclick = () => {
+                    window.location.href = "app.html";
+                    questionTextElement.removeChild(goback);
+                };
+                questionTextElement.appendChild(goback);
+
             }
         });
 }
@@ -94,7 +106,7 @@ function answer(type, BoolButtonValue = null) {
             break;
         case "INTEGER":
             const IntAnswerFieldElement = document.getElementById("intAnswerField");
-            let numberfiedstring=Number(IntAnswerFieldElement.value);
+            let numberfiedstring = Number(IntAnswerFieldElement.value);
             if (Number.isInteger(numberfiedstring)) { //The point of differentiating between number questions and integer questions is that integer questions only accept integers as a response
                 answerValue = IntAnswerFieldElement.value;
                 IntAnswerFieldElement.value = "";
@@ -184,16 +196,18 @@ function set_scoreboard() { //this function only runs once to create the appropr
     fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=5`)//on the actual question page only the top 5 will be displayed
         .then(response => response.json())
         .then(jsonobject => {
-            for (let i = 0; i < jsonobject.leaderboard.length; i++) {
+            if (jsonobject.status == "OK") {
+                for (let i = 0; i < jsonobject.leaderboard.length; i++) {
 
-                let full_name = jsonobject.leaderboard[i].player;
-                let trunc_name = full_name.substring(0, 15); //since some people seemed to find it funny to spam the API with long names, this will ensure the scoreboard remains uniform in composition by truncating the players' name strings. Should probably have implemented checks for other strings the API returns as well but they were considered 'trusted'.
-                scorespan = document.createElement("span");
-                scorespan.className = "scorespans";
-                scorespan.id = "scorespan" + i;
-                scorespan.style.margin = "2px";
-                scorespan.innerText = `${i + 1}: Player name: ${trunc_name}, Score:${jsonobject.leaderboard[i].score} `;
-                scoreboard.appendChild(scorespan); //TODO: make this update the scoreboard rather than append to it after the first time
+                    let full_name = jsonobject.leaderboard[i].player;
+                    let trunc_name = full_name.substring(0, 15); //since some people seemed to find it funny to spam the API with long names, this will ensure the scoreboard remains uniform in composition by truncating the players' name strings. Should probably have implemented checks for other strings the API returns as well but they were considered 'trusted'.
+                    scorespan = document.createElement("span");
+                    scorespan.className = "scorespans";
+                    scorespan.id = "scorespan" + i;
+                    scorespan.style.margin = "2px";
+                    scorespan.innerText = `${i + 1}: Player name: ${trunc_name}, Score:${jsonobject.leaderboard[i].score} `;
+                    scoreboard.appendChild(scorespan);
+                }
             }
         });
 
