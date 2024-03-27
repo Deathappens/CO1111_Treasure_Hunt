@@ -25,7 +25,7 @@ function getCookie(cname) {
 function magicquestionbutton() {
    const qbutt=document.getElementById('questpagelink');
     if (getCookie("sessionID") === "") {
-    qbutt.innerHTML='<a>Start a quiz first</a>';
+    qbutt.innerHTML='<a>Start a quiz first</a>'; //this does not currently work wtf
     qbutt.classList.add("disabled");
     console.log("should be disabled now");
     }else {
