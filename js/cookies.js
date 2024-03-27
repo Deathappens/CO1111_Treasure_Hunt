@@ -26,9 +26,7 @@ function magicquestionbutton() {
    const qbutt=document.getElementById("questpagelink");
     if (getCookie("sessionID") === "") {
     qbutt.style.display="none";
-    console.log("should be disabled now");
     }else {
-        console.log("didn't disable it");
         qbutt.style.display="flex";
     }
 
