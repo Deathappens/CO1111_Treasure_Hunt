@@ -13,7 +13,9 @@ function formInputValidator(event) {
         if(input_valid) {
             button.value = "Refresh the page if you wish to change your info!";
             button.disabled = true;
-            button.style.color="grey";
+            button.style.cursor = "default";
+            button.style.color="lightblue";
+
             getQuizList();
         }else{
             alert("The provided player name was not valid (only alphabetical characters allowed)");
@@ -55,7 +57,7 @@ function getQuizList() {
                     if (!(qenddate < today) && !(qstartdate > today)) {  //if the quiz ended before the current date or is set to start in the future, the start link isn't clickable
                         startlink.innerHTML = "<button onclick='questFetcher(\"" + questid + "\")'>Click here to start</button>";
                     } else {
-                        startlink.style.color = "grey";
+                        startlink.style.color = "lightblue";
                         startlink.style.textDecoration = "underline";
                         startlink.style.cursor = "default";
                         startlink.textContent = "This quest cannot be started yet or has already ended."

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tests!</title>
+</head>
+<body>
+<div>
+    <ol id="scoreboard"></ol>
+</div>
+
+<p id="score"></p>
+
+<div id="quizcont"></div>
+
+
+<script>
+
+
+    function Test_getQuizList(treasurehuntnumbers) {
+        let today = new Date();
+        let quizcontainer = document.getElementById("quizcont");
+        fetch(`https://codecyprus.org/th/test-api/list?number-of-ths=${treasurehuntnumbers}`)//send a query about the list of quests from the API
+            .then(response => response.json()) //parse it
+            .then(treasureHuntObject => {
+                if (treasureHuntObject.status === "OK") { //check if the list was received correctly
+                    const treasurearray = treasureHuntObject.treasureHunts; //if so,take the array of quests
+                    for (i = 0; i < treasurearray.length; i++) {
+                        let qname = treasurearray[i].name;
+                        let qdesc = treasurearray[i].description;
+                        let qstartdate = new Date(treasurearray[i].startsOn);
+                        let questid = treasurearray[i].uuid;
+                        let qenddate = new Date(treasurearray[i].endsOn);
+                        //break down all the relevant information for each quest
+
+                        let bigbox = document.createElement('div');
+                        bigbox.className = "quizbox";
+
+                        let boxheader = document.createElement('div');
+                        boxheader.className = "quizboxheader";
+                        boxheader.textContent = qname;
+                        bigbox.appendChild(boxheader);
+
+                        let content = document.createElement('div');
+                        content.innerHTML = qdesc + "<br>" + "This quiz's start date is: " + "<br>" + qstartdate;
+                        bigbox.appendChild(content);
+
+                        let startlink = document.createElement('div');
+
+                        if (!(qenddate < today) && !(qstartdate > today)) {  //if the quiz ended before the current date or is set to start in the future, the start link isn't clickable
+                            startlink.innerHTML = "<button onclick='questFetcher(\"" + questid + "\")'>Click here to start</button>";
+                        } else {
+                            startlink.style.color = "grey";
+                            startlink.style.textDecoration = "underline";
+                            startlink.style.cursor = "default";
+                            startlink.textContent = "This quest cannot be started yet or has already ended."
+                        }
+                        bigbox.appendChild(startlink);
+
+                        quizcontainer.appendChild(bigbox);
+
+                    }
+
+                } else {
+                    alert("There was a problem with the API response. Please try again!");
+                }
+            });
+    }
+
+
+
+
+    function Test_set_scoreboard(test_size) {
+        var scoreboard = document.getElementById('scoreboard');
+        fetch(`https://codecyprus.org/th/test-api/leaderboard?&size=${test_size}`)
+            .then(response => response.json())
+            .then(jsonobject => {
+                if (jsonobject.status == "OK") {
+                    for (let i = 0; i < jsonobject.leaderboard.length; i++) {
+
+                        let full_name = jsonobject.leaderboard[i].player;
+                        let scorespan = document.createElement("li");
+                        scorespan.className = "scorespans";
+                        scorespan.id = "scorespan" + i;
+                        scorespan.style.margin = "2px";
+                        scorespan.innerText = `${i + 1}: Player name: ${jsonobject.leaderboard[i].player}, Score:${jsonobject.leaderboard[i].score} `;
+                        scoreboard.appendChild(scorespan);
+                    }
+                }
+            });
+
+    }
+
+    function Test_score(testscore) {
+        let scorep = document.getElementById('score');
+
+        fetch(`https://codecyprus.org/th/test-api/score?score=${testscore}`)
+            .then(result => result.json())
+            .then(jsonifiedobject => {
+                if (jsonifiedobject.status == "OK") {
+                    scorep.innerHTML = `Your score:${jsonifiedobject.score}`;
+                }
+            })
+    }
+
+
+    //test_set_scoreboard(-1); //expected outcome: defaulting to 42 scoreboard places. Actual outcome: 42 scoreboard places. Test success
+    //test_set_scoreboard(0); //expected outcome: no scoreboards placed. Actual outcome: no scoreboards placed. Test successful.
+    //test_score(-999999); //expected outcome: score set to the minimum of -1000. Actual outcome: Score set to -1000. Test successful.
+    //test_score(99999); //expected outcome: score set to the maximum of 1000. Actual outcome: Score set to 1000. Test successful.
+    //test_score(-9999999999999);//expected outcome: score set to the minimum of -1000. Actual outcome: Score reverted to a default of 42. Test failed (API issue).
+    //test_score(9999999999999); //expected outcome: score set to the maximum of 1000. Actual outcome:Score reverted to a default of 42. Test failed (API issue)
+    //Test_getQuizList(10);  //expected outcome:ten quizbox objects. Actual outcome: 10 quizbox objects. Test successful.
+    //Test_getQuizList(-1); //expected outcome: reverting to the default number of quizzes (not noted in documentation). Actual outcome: 10 quizbox objects. Test inconclusive.
+    //Test_getQuizList(100); //expected outcome:100 quizbox objects. Actual outcome: 100 quizbox objects. Test successful.
+
+</script>
+
+
+<style>
+    #usertesting {
+        display: grid;
+        grid-template-columns: auto;
+    }
+
+    #usertesting span {
+        margin: 5px 5px 5px 5px;
+    }
+</style>
+
+
+<div id="usertesting">
+
+    <p>
+    <h1>User acceptance tests</h1> After core functionality was implemented, the app was given to three individuals to
+    test.
+    A lenient time limit was set to complete the quiz.</p>
+
+    <span><strong>Tester #1</strong>: A student of UCLAN familiar with computers and mobile devices.<br>
+    The user encountered no bugs and concluded the quiz successfully with only minimal guidance (re: the at the time
+    inaccessible location-based question).<br>
+    <strong>Comments:</strong> The app "works, but it's clunky". The user specified that "it's kind of ugly" and "needs more work on
+    styling".<br>
+    <strong>Test Outcome</strong>: The app's styling was redesigned from the ground up with the user's comments in mind.</span>
+
+    <span><strong>Tester #2:</strong> A younger relative of one of the team members. Some familiarity with smartphones and other mobile
+    devices. Little familiarity with computers.<br>
+
+    User encountered a 404 error when attempting to navigate from one page to another using the links at the top right
+    side of the page. After a workaround (back button to the previous page) user was able to succesfully complete the
+    quiz.<br>
+    <strong>Comments</strong>: "If it's broken, I won't play it, nobody likes broken apps".<br>
+    <strong>Test Outcome</strong>: The broken link was fixed and special care was taken to ensure navigating via the front-back buttons
+    does not cause sequence breaks/unintended behavior.</span>
+
+    <span> <strong>Tester #3</strong>: An older relative of another of the team members. Minimal to no familiarity with smartphones and mobile
+    devices, very little familiarity with computers.<br>
+
+    User was unable to find the start button in the start page and navigated away from the app by accident clicking on
+    the embedded twitter link. User expressed dissatisfaction and declined to continue testing. Quiz was not completed.<br>
+    <strong>Comments:</strong> "I'm too busy to figure this out, next time just tell me what I'm supposed to do".<br>
+    <strong>Test Outcome:</strong> The Start button was enlarged, placed in a more prominent spot, and a line instructing the user to
+       press it was added to the landing page.</span>
+
+
+</div>
+
+<div id="Heuristics">
+    <h1>Evaluation of the app using Nielsen's 10 Usability Heuristics:</h1>
+
+    <ol>
+        <li><strong>Visibility of System Status</strong>
+            <p>All buttons and links are clearly labeled to indicate their function. Alert messages are present
+                indicating
+                the current status of the app and informing the user about any potential errors that may appear.</p>
+        </li>
+
+        <li><strong>Match Between the System and the Real World</strong>
+            <p>The app follows commonly accepted conventions of similar quiz apps, such as using the standard A/B/C/D
+                button format for multiple choice questions, and uses simple non-technical language in all of its
+                prompts.</p>
+        </li>
+
+
+        <li><strong>User Control and Freedom</strong>
+            <p>The Skip Question button warns the user about the potential loss of score and allows the user to cancel
+                their action if desired. The user can navigate to any page within the app at any point with no risk of
+                losing progress.</p>
+        </li>
+
+        <li><strong>Consistency and Standards</strong>
+            <p> Similar language and interface layout is being used as that of most similar quiz applications currently
+                available, such as positioning important navigation links in the top right, keeping the content that
+                requires user attention (textboxes and sundry input methods) in the center of the screen, displaying the
+                scoreboard at the bottom et al.</p>
+        </li>
+
+        <li><strong>Error Prevention</strong>
+            <p> Multiple measures have been implemented to ensure action is taken to correct or mitigate any errors that
+                may
+                potentially occur (example: if the user attempts to respond to a quiz that has already expired, they are
+                shown an error message and then redirected to the app page). For those errors that may not be easily
+                solved
+                without user input, explicit error messages explain the issue to the user and detail the actions needed
+                to
+                resolve it (example: activating location services to enable answering a location-based question).</p>
+        </li>
+
+        <li><strong>Recognition Rather than Recall</strong>
+            <p> All information needed for playing the treasure hunt quiz is shown on screen at all times, including
+                current
+                score, top 5 scoreboard, the currently asked question and the respective response interface (textbox,
+                multiple choice buttons, etc). Navigation buttons for every other area of the app (including full
+                scoreboard) are clearly labelled.</p>
+        </li>
+
+        <li><strong>Flexibility and Efficiency of Use</strong>
+            <p> The navigation menu enables the player to move from every area of the app to every other area at a
+                touch.</p>
+        </li>
+
+        <li><strong> Aesthetic and Minimalist Design</strong>
+            <p> The layout of the quiz app has been carefully considered so that important elements are always centered
+                on
+                the user's screen and when possible highlighted.</p>
+        </li>
+
+        <li><strong>Help Users Recognize, Diagnose, and Recover from Errors</strong>
+            <p> All error messages presented are concise, detailed, and include a suggestion for how they might be
+                resolved.</p>
+        </li>
+
+        <li><strong>Help and Documentation</strong>
+            <p> Error messages offer suggestions for how they might be resolved by the user.</p>
+        </li>
+    </ol>
+</div>
+</body>
+</html>
