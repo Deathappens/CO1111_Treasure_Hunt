@@ -25,7 +25,7 @@ function start_scan() {
             scanner.start(cameras[active_cam]);
             sessionStorage.camerastorage = cameras;
         } else {
-            console.error('No cameras found.');
+            console.log('No cameras found.');
             alert("No cameras found.");
         }
     }).catch(function (e) {
