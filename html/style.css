@@ -25,7 +25,7 @@ header, footer {
 
 p {
     text-align:  center;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     font-size: 24px;
 
 }
@@ -163,7 +163,7 @@ footer {
 /* Social Media Icons */
 .twitter_icon::before, .insta::before {
     margin-right: 8px;
-    font-family: 'Font Awesome 5 Free'; /* Assuming Font Awesome is used */
+    font-family: 'Font Awesome 5 Free', sans-serif; /* Assuming Font Awesome is used */
     font-weight: 900; /* Necessary for solid icons */
 }
 
