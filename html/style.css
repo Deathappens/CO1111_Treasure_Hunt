@@ -464,3 +464,37 @@ input[type="text"]:focus {
     background-color: grey;
     color: lightgray;
 }
+
+#playerscoreheading, #scoreboardivheading {
+
+    margin: 0 0 20px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    margin-top: 10px;
+}
+
+#innerscoreboardiv {
+    display: grid;
+    gap: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+}
+
+.scorespans {
+    display: block;
+    background-color: #4D300E;
+    color: #f0f0f0;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+    border-radius: 8px;
+}
+
+.scorespans:hover {
+    transform: scale(1.05);
+    background-color: #B89666;
+}
