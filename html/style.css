@@ -13,7 +13,7 @@ body {
 header, footer {
     background-color: #522e03; /* Light background for header and footer */
     padding: 20px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Soft shadow for depth */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
 .name h1 {
@@ -24,11 +24,12 @@ header, footer {
 }
 
 p {
-    text-align:  center;
+    text-align: center;
     font-family: Arial, sans-serif;
     font-size: 24px;
 
 }
+
 #skipbutton {
     display: flex; /* Use flexbox */
     justify-content: center; /* Center horizontally */
@@ -51,11 +52,19 @@ p {
 }
 
 
-.buttonc {
+.start_button {
     display: flex;
     justify-content: center;
     padding: 20px 0; /* More breathing space around button */
+
 }
+#startbutton{
+    width: 400px;
+    height: 150px;
+    font-size: 36px;
+
+}
+
 
 #submitbutton {
     width: 200px;
@@ -91,8 +100,7 @@ button:hover {
 }
 
 
-
-.Names, .links, .twitter, .grid-container {
+.Names, .links, .social_media, .grid-container {
     color: #333; /* Consistent text color */
 }
 
@@ -161,21 +169,22 @@ footer {
 }
 
 /* Social Media Icons */
-.twitter_icon::before, .insta::before {
+.social_media_icon::before, .insta::before {
     margin-right: 8px;
     font-family: 'Font Awesome 5 Free', sans-serif; /* Assuming Font Awesome is used */
     font-weight: 900; /* Necessary for solid icons */
 }
 
 
-
-.twitter {
+.social_media {
     display: grid;
-justify-content: center;
+    justify-content: center;
 }
-.insta{
+
+.insta {
     padding-left: 20px
 }
+
 .insta::before {
     content: '\f16d'; /* Instagram icon unicode */
 
@@ -186,6 +195,7 @@ justify-content: center;
     margin: 5px 0; /* Uniform spacing for names */
     padding-bottom: 8px;
 }
+
 #questionnaire {
     display: flex;
     flex-direction: column; /* Stack elements vertically */
@@ -216,6 +226,7 @@ justify-content: center;
     font-size: 28px;
     text-align: center;
 }
+
 .container {
     display: flex; /* Use flexbox for alignment */
     flex-direction: column; /* Stack elements vertically */
@@ -286,6 +297,7 @@ justify-content: center;
     left: 20px; /* Position from the left */
     top: 82px; /* Position from the top */
 }
+
 .prompt_button:hover {
     background-color: #b78d62; /* Darker shade on hover */
 }
@@ -313,6 +325,7 @@ justify-content: center;
 .links a:hover {
     background-color: #f2f2f2; /* Light gray background on hover */
 }
+
 .submit-button {
     width: 100px;
     height: 40px;
@@ -346,6 +359,7 @@ justify-content: center;
 #mcqAnswerBlock input[type="button"]:hover {
     background-color: #381f02;
 }
+
 .bool-answer-buttons input[type="button"] {
     width: 100px; /* Adjust width as needed */
     height: 40px; /* Adjust height as needed */
@@ -362,6 +376,7 @@ justify-content: center;
 .bool-answer-buttons input[type="button"]:hover {
     background-color: #381f02; /* Darker shade on hover */
 }
+
 input[type="text"] {
     width: 200px; /* Adjust width as needed */
     height: 40px; /* Adjust height as needed */
@@ -376,6 +391,7 @@ input[type="text"]:focus {
     outline: none; /* Remove default focus outline */
     border-color: #381f02; /* Change border color on focus */
 }
+
 .answer-block {
     display: flex;
     justify-content: center;
@@ -398,6 +414,7 @@ input[type="text"]:focus {
     outline: none; /* Remove default focus outline */
     border-color: #381f02; /* Change border color on focus */
 }
+
 /* CSS for the numAnswerBlock */
 #numAnswerBlock {
     display: flex;
@@ -447,20 +464,21 @@ input[type="text"]:focus {
 }
 
 
+.welcome {
+    text-align: center;
+}
 
-.welcome{
+.please {
     text-align: center;
 }
-.please{
-    text-align: center;
-}
-.slogan{
+
+.slogan {
     text-align: center;
     color: white;
 }
 
 
-.disabled{
+.disabled {
     background-color: grey;
     color: lightgray;
 }
