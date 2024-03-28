@@ -26,7 +26,7 @@ function start_scan() {
             console.log("I have detected "+cameras.length+" cameras");
              camerastorage = cameras;
         } else {
-            console.log('No cameras found.');
+            console.log('No cameras found.'); //this error doesn't seem to be firing, but might as well keep it just in case.
             alert("No cameras found.");
         }
     }).catch(function (e) {
