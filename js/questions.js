@@ -159,7 +159,12 @@ function answer(type, BoolButtonValue = null) {
                 }
             } else {
                 alert(jsonObject.errorMessages);
-                //TODO - Handle error message-doing what?
+                if (jsonObject.errorMessages == "Finished session. The specified session has run out of time.") { //if session expired: delete session cookie, redirect to app.html. Reading the error message is a terrible way to do error handling but since the APi doesn't use error codes...
+                    delete_cookie("sessionID");
+                    window.location.href = "app.html";
+
+                }
+
             }
         });
 
