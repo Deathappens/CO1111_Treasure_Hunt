@@ -15,8 +15,10 @@ var scancontent = document.getElementById("scanned_content");
 var active_cam = 0;
 
 function start_scan() {
+    let qrbutton=document.getElementById("qrstartbutton");
     let popupwindow = document.getElementById("popup");
     popupwindow.style.display = "flex";
+    qrbutton.style.display="none";
 
     Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
@@ -39,8 +41,11 @@ function start_scan() {
 
 function stop_scan() {
     let popupwindow = document.getElementById("popup");
+    let qrbutton=document.getElementById("qrstartbutton");
     scanner.stop(active_cam);
     popupwindow.style.display = "none";
+    qrbutton.style.display="flex";
+
 }
 
 function camera_cycle() {
