@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Scoreboard</title>
+</head>
+<body>
+
+<header>
+    <h1 class="welcome">Welcome to the Quiz list!</h1>
+    <div class="links">
+        <a href="app.html">App</a>
+        <a id="questpagelink" href="question.html">Questions</a>
+        <a href="../index.html">Start Page</a>
+    </div>
+</header>
+
+<div id="scoreboard" style="border:solid black 1px;   display: grid"></div>
+<script src="../js/cookies.js"></script>
+
+<script>
+    let sessionID = getCookie("sessionID");
+    let scoreboard=document.getElementById("scoreboard");
+    fetch(`https://codecyprus.org/th/api/leaderboard?session=${sessionID}&sorted&limit=20`)
+        .then(response => response.json())
+        .then(jsonobject => {
+            if (jsonobject.status == "OK") {
+                for (let i = 0; i < jsonobject.leaderboard.length; i++) {
+
+                    let full_name = jsonobject.leaderboard[i].player;
+                    let trunc_name = full_name.substring(0, 15); //since some people seemed to find it funny to spam the API with long names, this will ensure the scoreboard remains uniform in composition by truncating the players' name strings. Should probably have implemented checks for other strings the API returns as well but they were considered 'trusted'.
+                    scorespan = document.createElement("span");
+                    scorespan.className = "scorespans";
+                    scorespan.id = "scorespan" + i;
+                    scorespan.style.margin = "2px";
+                    scorespan.innerText = `${i + 1}: Player name: ${trunc_name}, Score:${jsonobject.leaderboard[i].score} `;
+                    scoreboard.appendChild(scorespan);
+                }
+            }
+        });
+
+</script>
+
+
+<footer>
+    <div class="grid-container">
+        <div class="grid-item">
+            <H4>
+                Social Media
+            </H4>
+            <a href="https://twitter.com/TreasureAVRS" target="_blank">
+                <img src="../resources/twitterlogo.png" alt="Twitter" class="twitter"
+                     style="width: 100px; height: 100px;">
+            </a>
+            <a href="https://www.instagram.com/treasureavrs/?hl=en">
+                <img src="../resources/instagram.png" alt="insta" class="insta" style="width: 100px; height: 100px;">
+            </a>
+
+
+        </div>
+        <div class="grid-item">
+            <div class="Names">
+                <h1 class="header">Names:</h1>
+                <P>Vasilii </P>
+                <P>Alex </P>
+                <P>Maxim </P>
+                <P>Nikolas </P><br>
+
+
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+
+</body>
+</html>

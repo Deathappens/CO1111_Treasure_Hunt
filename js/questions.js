@@ -9,6 +9,7 @@ const mcqAnswerBlock = document.getElementById("mcqAnswerBlock");
 const boolAnswerBlock = document.getElementById("boolAnswerBlock");
 const playerscore = document.getElementById("playerscoreheading");
 const scoreboard = document.getElementById("innerscoreboardiv");
+const scoreboardlink=document.getElementById("scoreboardlink");
 
 function getQuestion() {
     fetch(`https://codecyprus.org/th/api/question?session=${sessionID}`)
@@ -58,6 +59,7 @@ function getQuestion() {
                     skipbutton.style.display = "none";
                 }
             } else {
+                session_ok=false;
                 console.log(jsonObject.errorMessages);
                 questionTextElement.innerHTML = "<h1>Sorry! An error has occurred!</h1>"
                 let goback = document.createElement("button");
@@ -197,6 +199,7 @@ function set_scoreboard() { //this function only runs once to create the appropr
         .then(response => response.json())
         .then(jsonobject => {
             if (jsonobject.status == "OK") {
+                scoreboardlink.style.display="flex";
                 for (let i = 0; i < jsonobject.leaderboard.length; i++) {
 
                     let full_name = jsonobject.leaderboard[i].player;
