@@ -9,8 +9,13 @@ body {
 
 }
 
-
-header, footer {
+header {
+    background-color: #522e03; /* Light background for header and footer */
+    padding: 20px 0;
+    margin-top: -21px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+footer {
     background-color: #522e03; /* Light background for header and footer */
     padding: 20px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
@@ -18,7 +23,7 @@ header, footer {
 
 .name h1 {
     margin: 0;
-    color: #ffffff; /* Darker text for better contrast */
+    color: gold; /* Darker text for better contrast */
     font-weight: 300; /* Lighter font-weight */
     text-align: center;
 }
@@ -50,7 +55,6 @@ p {
 #skipbutton:hover {
     background-color: #381f02; /* Darker shade on hover */
 }
-
 
 .start_button {
     display: flex;
@@ -101,7 +105,7 @@ button:hover {
 
 
 .Names, .links, .social_media, .grid-container {
-    color: #333; /* Consistent text color */
+    color: #000000; /* Consistent text color */
 }
 
 .grid-container {
@@ -194,6 +198,7 @@ footer {
 .Names p {
     margin: 5px 0; /* Uniform spacing for names */
     padding-bottom: 8px;
+    color: black;
 }
 
 #questionnaire {
@@ -474,7 +479,8 @@ input[type="text"]:focus {
 
 .slogan {
     text-align: center;
-    color: white;
+    color: gold;
+
 }
 
 
@@ -490,9 +496,7 @@ input[type="text"]:focus {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-h1 {
-    margin-top: 10px;
-}
+
 
 #innerscoreboardiv {
     display: grid;
@@ -515,4 +519,15 @@ h1 {
 .scorespans:hover {
     transform: scale(1.05);
     background-color: #B89666;
+}
+h1 {
+    font-family: Algerian;
+    color: gold;
+}
+.header {
+    color: black;
+    font-family: Arial, sans-serif;
+}
+#questionNo {
+    color: #3f2302;
 }
